@@ -1,0 +1,1079 @@
+/* ===== RESET ET BASE ===== */
+/* Vérifiez les chemins des polices */
+@font-face {
+  font-family: "bootstrap-icons";
+  src: url("../font/bootstrap-icons.woff2") format("woff2"),
+       url("../font/bootstrap-icons.woff") format("woff");
+  /* Le chemin doit correspondre à votre structure */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f8f9fa;
+    min-height: 100vh;
+}
+
+/* Doit pointer vers vos fichiers de polices */
+i{
+    padding: 10px;
+}
+
+/* ===== NAVIGATION BOOTSTRAP ===== */
+.navbar-brand {
+    font-weight: bold;
+}
+
+.navbar-nav .nav-link {
+    transition: all 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+    background-color: rgba(255,255,255,0.1);
+    border-radius: 5px;
+}
+
+/* ===== CONTENU PRINCIPAL ===== */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* ===== CARTES BOOTSTRAP ===== */
+.card {
+    border: none;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+.card-title {
+    color: #2c3e50;
+    font-weight: 600;
+}
+
+/* ===== SERVICES ===== */
+.service-card {
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 10px;
+}
+
+.service-card:last-child {
+    border-bottom: none;
+}
+
+.service-card strong {
+    color: #2c3e50;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.service-card .text-muted {
+    font-size: 0.9em;
+}
+
+/* ===== FORMULAIRES ===== */
+.form-label {
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 8px;
+}
+
+.form-control, .form-select {
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    padding: 10px 12px;
+    transition: border-color 0.3s ease;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+}
+
+/* ===== STRUCTURE AMÉLIORÉE ===== */
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.service-category {
+    margin-bottom: 2rem;
+}
+
+.service-category h6 {
+    color: #2c3e50;
+    font-weight: 600;
+}
+
+.service-item .card {
+    border: 1px solid #e9ecef;
+    transition: all 0.3s ease;
+    margin-bottom: 1rem;
+}
+
+.service-item .card:hover {
+    border-color: #3498db;
+    box-shadow: 0 2px 8px rgba(52, 152, 219, 0.1);
+}
+
+.service-item .card-body {
+    padding: 1rem;
+}
+
+.service-details {
+    padding-top: 0.75rem;
+    border-top: 1px solid #f8f9fa;
+}
+
+.form-label.small {
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+}
+
+/* ===== INTERFACE ÉTAPE PAR ÉTAPE ===== */
+.steps-progress {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.steps-progress::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: #dee2e6;
+    z-index: 1;
+}
+
+.step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+    flex: 1;
+}
+
+.step-circle {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #dee2e6;
+    color: #6c757d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    border: 3px solid white;
+    transition: all 0.3s ease;
+}
+
+.step.active .step-circle {
+    background: #0d6efd;
+    color: white;
+    transform: scale(1.1);
+}
+
+.step-label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #6c757d;
+    text-align: center;
+}
+
+.step.active .step-label {
+    color: #0d6efd;
+    font-weight: 600;
+}
+
+.step-content {
+    display: none;
+}
+
+.step-content.active {
+    display: block;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Styles pour les catégories de services dans la nouvelle interface */
+.service-category-new {
+    padding: 1.5rem;
+    border: 1px solid #e9ecef;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    background: white;
+    transition: all 0.3s ease;
+}
+
+.service-category-new:hover {
+    border-color: #0d6efd;
+    box-shadow: 0 2px 10px rgba(13, 110, 253, 0.1);
+}
+
+.service-item-card {
+    padding: 1rem;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    background: white;
+}
+
+.total-card {
+    border: 2px solid #198754;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+/* ===== BADGE DE SAUVEGARDE ===== */
+#badge-sauvegarde {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    background: #3498db;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: bold;
+    z-index: 1000;
+    cursor: pointer;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    border: 2px solid white;
+    animation: pulse 2s infinite;
+}
+
+/* ===== PAIEMENT MOBILE MONEY ===== */
+.mobile-money-card {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    border: 2px solid #e9ecef;
+    transition: all 0.3s ease;
+}
+
+.mobile-money-card:hover {
+    border-color: #3498db;
+    transform: translateY(-2px);
+}
+
+.mobile-money-card strong {
+    color: #2c3e50;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.mobile-money-card p {
+    color: #e74c3c;
+    font-weight: bold;
+    margin: 0;
+    font-size: 1.1em;
+}
+
+/* ===== APERÇU FACTURE & DEVIS ===== */
+.facture-preview {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    border: 2px solid #3498db;
+    margin: 20px 0;
+    overflow: hidden;
+}
+
+.facture-preview table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    margin: 15px 0 !important;
+}
+
+.facture-preview th {
+    background: #34495e !important;
+    color: white !important;
+    font-weight: bold !important;
+    padding: 12px 15px !important;
+    text-align: left !important;
+}
+
+.facture-preview td {
+    padding: 12px 15px !important;
+    border-bottom: 1px solid #dee2e6 !important;
+}
+
+/* ===== BOUTONS PERSONNALISÉS ===== */
+.btn {
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    min-height: 44px;
+}
+
+.btn-primary {
+    background: #3498db;
+    border-color: #3498db;
+}
+
+.btn-primary:hover {
+    background: #2980b9;
+    border-color: #2980b9;
+    transform: translateY(-2px);
+}
+
+.btn-success {
+    background: #27ae60;
+    border-color: #27ae60;
+}
+
+.btn-success:hover {
+    background: #219a52;
+    border-color: #219a52;
+    transform: translateY(-2px);
+}
+
+.btn-outline-primary {
+    color: #3498db;
+    border-color: #3498db;
+}
+
+.btn-outline-primary:hover {
+    background: #3498db;
+    border-color: #3498db;
+    transform: translateY(-2px);
+}
+
+.btn-outline-danger {
+    color: #e74c3c;
+    border-color: #e74c3c;
+}
+
+.btn-outline-danger:hover {
+    background: #e74c3c;
+    border-color: #e74c3c;
+    color: white;
+    transform: translateY(-2px);
+}
+
+.btn-lg {
+    padding: 12px 24px;
+}
+
+/* ===== STICKY SIDEBAR ===== */
+.sticky-sidebar {
+    position: sticky;
+    top: 20px;
+}
+
+.total-display {
+    text-align: center;
+    padding: 20px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 10px;
+    border: 2px solid #e9ecef;
+    margin-bottom: 20px;
+}
+
+.total-display h3, .total-display h4 {
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+#totalAmount {
+    color: #e74c3c;
+    font-size: 2em;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+/* ===== ALERTES PERSONNALISÉES ===== */
+.alert-custom {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10000;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    animation: slideDown 0.3s ease;
+}
+
+.alert-success {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.alert-error {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.alert-info {
+    background: #d1ecf1;
+    color: #0c5460;
+    border: 1px solid #bee5eb;
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes slideDown {
+    from { transform: translateX(-50%) translateY(-20px); opacity: 0; }
+    to { transform: translateX(-50%) translateY(0); opacity: 1; }
+}
+
+@keyframes slideUp {
+    from { transform: translateX(-50%) translateY(0); opacity: 1; }
+    to { transform: translateX(-50%) translateY(-20px); opacity: 0; }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    
+    .container.py-4 {
+        padding-top: 1rem !important;
+        padding-bottom: 1rem !important;
+    }
+    
+    .card-body {
+        padding: 15px;
+    }
+    
+    .col-lg-8, .col-lg-4 {
+        margin-bottom: 1rem;
+    }
+    
+    .sticky-sidebar {
+        position: static;
+    }
+    
+    .service-item {
+        padding: 12px;
+    }
+    
+    .service-item .card-body {
+        padding: 0.75rem;
+    }
+    
+    .service-item .card {
+        margin-bottom: 0.75rem;
+    }
+    
+    .service-details .row {
+        flex-direction: column;
+    }
+    
+    .service-details .col-6,
+    .service-details .col-8 {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+    
+    .mobile-money-card {
+        margin-bottom: 15px;
+    }
+    
+    #badge-sauvegarde {
+        top: 70px;
+        right: 10px;
+        font-size: 12px;
+        padding: 6px 10px;
+    }
+    
+    .facture-preview {
+        padding: 15px;
+        margin: 10px;
+    }
+    
+    .facture-preview table {
+        font-size: 12px;
+    }
+    
+    .facture-preview th,
+    .facture-preview td {
+        padding: 8px !important;
+    }
+    
+    .btn-lg {
+        padding: 0.75rem 1rem;
+        font-size: 0.9rem;
+    }
+    
+    .total-display {
+        padding: 1rem;
+        margin-bottom: 1rem;
+    }
+    
+    .total-display h4 {
+        font-size: 1.1rem;
+    }
+    
+    .total-display h2 {
+        font-size: 1.5rem;
+    }
+    
+    .nav-tabs.mb-4 {
+        margin-bottom: 1rem !important;
+    }
+    
+    .form-control, .form-select {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.9rem;
+    }
+    
+    .text-muted.small {
+        font-size: 0.8rem;
+    }
+    
+    /* Responsive pour la nouvelle interface étape par étape */
+    .steps-progress {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .steps-progress::before {
+        display: none;
+    }
+    
+    .step {
+        flex-direction: row;
+        width: 100%;
+        gap: 1rem;
+    }
+    
+    .step-circle {
+        margin-bottom: 0;
+        flex-shrink: 0;
+    }
+    
+    .service-category-new {
+        padding: 1rem;
+    }
+    
+    .service-item-card {
+        padding: 0.75rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .btn {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    
+    .d-grid.gap-2 {
+        gap: 0.75rem !important;
+    }
+    
+    /* Mobile optimizations pour la nouvelle interface */
+    .step-content .card-body {
+        padding: 1rem;
+    }
+    
+    .service-category-new .row {
+        flex-direction: column;
+    }
+}
+
+/* ===== IMPRESSION ===== */
+@media print {
+    .navbar,
+    .nav-tabs,
+    .btn,
+    #badge-sauvegarde {
+        display: none !important;
+    }
+    
+    .facture-preview {
+        border: none;
+        box-shadow: none;
+        margin: 0;
+        padding: 0;
+    }
+    
+    body {
+        background: white !important;
+        padding: 0 !important;
+    }
+    
+    .container {
+        max-width: none;
+        margin: 0;
+        padding: 0 !important;
+    }
+    
+    .no-print {
+        display: none !important;
+    }
+    
+    /* Cacher l'interface étape par étape en impression */
+    .steps-progress,
+    .step-content:not(.active) {
+        display: none !important;
+    }
+}
+
+/* ===== CORRECTIONS GARANTIES ===== */
+.tab-content {
+    min-height: auto;
+}
+
+.d-grid {
+    transition: all 0.3s ease;
+}
+
+#btnExportDevis {
+    transition: all 0.3s ease;
+}
+
+/* Garantir l'affichage des boutons */
+button[onclick] {
+    display: inline-flex !important;
+}
+
+/* Supprimer l'espace vide en mobile */
+@media (max-width: 768px) {
+    body {
+        padding-bottom: 0 !important;
+    }
+    
+    .tab-content {
+        padding-bottom: 1rem;
+    }
+}
+
+/* ===== BOUTON PLUS FIXÉ ===== */
+.btn-plus-fixe {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    color: white;
+    border: none;
+    font-size: 24px;
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4);
+    cursor: pointer;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.btn-plus-fixe:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(52, 152, 219, 0.6);
+    background: linear-gradient(135deg, #2980b9, #3498db);
+}
+
+/* Animation d'apparition */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.btn-plus-fixe.pulse {
+    animation: pulse 2s infinite;
+}
+
+.conditions-card {
+    background: linear-gradient(135deg, #f8f9ff 0%, #f0f4ff 100%);
+    border-radius: 15px;
+    padding: 2rem;
+    border: 1px solid #e3e8ff;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+
+.conditions-card h4 {
+    font-weight: 700;
+    font-size: 1.4rem;
+    border-bottom: 2px solid #e3e8ff;
+    padding-bottom: 1rem;
+}
+
+.conditions-list li {
+    padding: 0.8rem 1rem;
+    background: white;
+    border-radius: 10px;
+    border-left: 4px solid #4d7cfe;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    transition: all 0.3s ease;
+}
+
+.conditions-list li:hover {
+    transform: translateX(5px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.conditions-list i {
+    font-size: 1.2rem;
+    min-width: 24px;
+}
+
+.conditions-list strong {
+    color: #2d3748;
+    font-size: 0.95rem;
+    display: block;
+    margin-bottom: 0.2rem;
+}
+
+.conditions-list .text-muted {
+    font-size: 0.85rem;
+    line-height: 1.4;
+}
+
+/* === STYLES NOUVELLE COMMANDE === */
+
+.service-rapide-card {
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: white;
+    margin-bottom: 10px;
+}
+
+.service-rapide-card:hover {
+    border-color: #007bff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,123,255,0.1);
+}
+
+.service-rapide-icon {
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+.service-rapide-name {
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 3px;
+    color: #2c3e50;
+}
+
+.service-rapide-price {
+    font-size: 11px;
+    color: #28a745;
+    font-weight: bold;
+}
+
+/* Animation pour l'ajout de service */
+@keyframes highlightService {
+    0% { background-color: #e8f5e8; }
+    100% { background-color: transparent; }
+}
+
+.service-item.highlight {
+    animation: highlightService 1s ease;
+}
+
+/* Badge de référence */
+.reference-badge {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* ===== STYLES POUR LA NOUVELLE INTERFACE ÉTAPE PAR ÉTAPE ===== */
+
+/* Cartes de services dans la nouvelle interface */
+.service-category-card {
+    border: 1px solid #e9ecef;
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    background: white;
+    transition: all 0.3s ease;
+}
+
+.service-category-card:hover {
+    border-color: #0d6efd;
+    box-shadow: 0 4px 15px rgba(13, 110, 253, 0.1);
+}
+
+.service-category-card h5 {
+    color: #2c3e50;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #f8f9fa;
+    padding-bottom: 0.5rem;
+}
+
+/* En-têtes colorés pour chaque étape */
+.card-header.bg-primary {
+    background: linear-gradient(135deg, #3498db, #2980b9) !important;
+}
+
+.card-header.bg-success {
+    background: linear-gradient(135deg, #27ae60, #219a52) !important;
+}
+
+.card-header.bg-warning {
+    background: linear-gradient(135deg, #f39c12, #e67e22) !important;
+}
+
+.card-header.bg-info {
+    background: linear-gradient(135deg, #17a2b8, #138496) !important;
+}
+
+/* Amélioration des formulaires dans la nouvelle interface */
+.form-control-lg {
+    border-radius: 10px;
+    font-size: 1.1rem;
+}
+
+.form-select-lg {
+    border-radius: 10px;
+    font-size: 1.1rem;
+}
+
+/* Styles pour les services personnalisés */
+.custom-service-item {
+    border: 1px dashed #dee2e6;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background: #fafbfc;
+    transition: all 0.3s ease;
+}
+
+.custom-service-item:hover {
+    border-color: #3498db;
+    background: #f8f9fa;
+}
+
+/* Récapitulatif amélioré */
+.recap-item {
+    border-bottom: 1px solid #e9ecef;
+    padding: 0.75rem 0;
+}
+
+.recap-item:last-child {
+    border-bottom: none;
+}
+
+.recap-service-name {
+    font-weight: 500;
+    color: #2c3e50;
+}
+
+.recap-service-details {
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+/* Animation de transition entre les étapes */
+.step-transition-enter {
+    opacity: 0;
+    transform: translateX(50px);
+}
+
+.step-transition-enter-active {
+    opacity: 1;
+    transform: translateX(0);
+    transition: all 0.3s ease;
+}
+
+.step-transition-exit {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.step-transition-exit-active {
+    opacity: 0;
+    transform: translateX(-50px);
+    transition: all 0.3s ease;
+}
+
+/* Indicateur de chargement pour le calcul */
+.calculating {
+    position: relative;
+}
+
+.calculating::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255,255,255,0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+}
+
+/* Amélioration de la progress bar */
+.progress-step {
+    height: 6px;
+    background: #e9ecef;
+    border-radius: 3px;
+    overflow: hidden;
+    margin: 1rem 0;
+}
+
+.progress-step-fill {
+    height: 100%;
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    border-radius: 3px;
+    transition: width 0.3s ease;
+}
+
+/* Badges pour les compteurs */
+.badge-step {
+    background: #6c757d;
+    color: white;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    margin-left: 0.5rem;
+}
+
+/* Styles pour les états de validation */
+.form-control.valid {
+    border-color: #28a745;
+}
+
+.form-control.invalid {
+    border-color: #dc3545;
+}
+
+.validation-feedback {
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+.validation-feedback.valid {
+    color: #28a745;
+}
+
+.validation-feedback.invalid {
+    color: #dc3545;
+}
+
+/* Mode sombre optionnel */
+@media (prefers-color-scheme: dark) {
+    .service-category-new,
+    .service-item-card,
+    .service-category-card {
+        background: #2d3748;
+        border-color: #4a5568;
+        color: #e2e8f0;
+    }
+    
+    .service-category-new h5,
+    .service-category-card h5 {
+        color: #e2e8f0;
+        border-bottom-color: #4a5568;
+    }
+}
+
+/* Accessibilité - Focus amélioré */
+.btn:focus,
+.form-control:focus,
+.form-select:focus,
+.form-check-input:focus {
+    outline: 2px solid #3498db;
+    outline-offset: 2px;
+}
+
+/* Performance - Réduction des animations pour les préférences utilisateur */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Dans votre fichier facture.css ou dans une balise style */
+.facture-preview {
+    margin-top: 2rem;
+    padding: 2rem;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    border: 1px solid #e9ecef;
+}
+
+/* Styles pour les boutons d'action de l'aperçu */
+.facture-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #dee2e6;
+}
+
+.facture-actions .btn {
+    min-width: 120px;
+}
+
+.facture-footer .btn {
+    min-width: 140px;
+    margin: 5px;
+}
+
+/* Pour les petits écrans */
+@media (max-width: 768px) {
+    .facture-footer .btn {
+        min-width: 120px;
+        font-size: 0.9rem;
+    }
+    
+    .facture-footer .d-flex {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .facture-footer .btn {
+        width: 100%;
+        max-width: 200px;
+    }
+}

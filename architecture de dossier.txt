@@ -1,0 +1,52 @@
+│   facture.html
+│   logo.png
+│
+├───assets
+│   ├───css
+│   │       bootstrap-icons.css
+│   │       bootstrap.min.css
+│   │       bootstrap.min.css.map
+│   │       dashboard.css
+│   │       facture.css
+│   │       font-awesome.min.css
+│   │       login.css
+│   │       offcanvas-navbar.css
+│   │       rapports.css
+│   │
+│   ├───font
+│   │       bootstrap-icons.woff
+│   │       bootstrap-icons.woff2
+│   │
+│   ├───image
+│   │       logo-airtelmoney.png
+│   │       logo-mvola.png
+│   │       logo-orangemoney.png
+│   │
+│   └───js
+│           bootstrap.bundle.min.js
+│           bootstrap.bundle.min.js.map
+│           configuration.js
+│           coup.js
+│           dashboard.js
+│           facture.js
+│           html2canvas.esm.js
+│           jquery-3.6.0.min.js
+│           msg.JS
+│           offcanvas-navbar.js
+│           sauvegarde.js
+│           services-manager.js
+│           sync-manager.js
+│
+├───dashboard
+│       index.html
+│       login.html
+│       teste.html
+│
+├───Sauvegarde
+│       backup_msn_2025-11-12 (1).csv
+│
+└───shared
+        data.js
+        firebase-config.js
+        migration.js
+        sync-manager.js

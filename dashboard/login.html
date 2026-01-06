@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+     <!-- Dans index.html -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion - Multi-Services Numériques</title>
+    <link rel="stylesheet" href="../assets/css/login.css">
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo">
+            <img src="../logo.png" alt="Multi-Services Numériques" onerror="this.style.display='none'">
+            <h1>Espace Administrateur</h1>
+            <p>Dashboard Multi-Services Numériques</p>
+        </div>
+
+        <div class="error-message" id="errorMessage">
+            <strong>Erreur de connexion</strong><br>
+            Identifiant ou mot de passe incorrect
+        </div>
+
+        <div class="success-message" id="successMessage">
+            <strong>Connexion réussie !</strong><br>
+            Redirection en cours...
+        </div>
+
+        <div class="info-message" id="infoMessage">
+            Mode hors ligne activé - Connexion locale seulement
+        </div>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="identifiant">Identifiant administrateur</label>
+                <input type="text" id="identifiant" class="form-control" required placeholder="Votre identifiant">
+            </div>
+
+            <div class="form-group password-toggle">
+                <label for="motdepasse">Mot de passe</label>
+                <input type="password" id="motdepasse" class="form-control" required placeholder="Votre mot de passe">
+                <button type="button" class="toggle-password" onclick="togglePasswordVisibility()">👁️</button>
+            </div>
+
+            <button type="submit" class="btn" id="loginButton">
+                <span class="btn-text">Se connecter</span>
+            </button>
+        </form>
+
+        <div class="links">
+            <a href="../facture.html">← Retour à l'app de facturation</a>
+        </div>
+
+        <div class="debug-info">
+            <div class="sync-status" id="syncStatus">
+                <span>Statut connexion:</span>
+                <span id="connectionStatus">Vérification...</span>
+            </div>
+            
+            <strong>Informations système:</strong><br>
+            • Commandes locales: <span id="debugCommandes">0</span><br>
+            • Services disponibles: <span id="debugServices">0</span><br>
+            • Mode: <span id="debugMode">Local</span><br>
+            • Dernière sync: <span id="lastSync">Jamais</span>
+        </div>
+    </div>
+
+<!-- CHARGER FIREBASE -->
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
+<!-- CHARGER NOS FICHIERS -->
+<script src="../shared/firebase-config.js"></script>
+<script src="../shared/sync-manager.js"></script>
+<script src="../shared/data.js"></script>
+
+<script>
+    // Variables globales
+    let dataManager;
+    let isFirebaseAvailable = false;
+
+    // Initialiser l'application
+    document.addEventListener('DOMContentLoaded', function() {
+        initializeApp();
+        setupEventListeners();
+        checkExistingSession();
+    });
+
+    function initializeApp() {
+        try {
+            // Initialiser DataManager
+            dataManager = new DataManager();
+            
+            // Vérifier la disponibilité de Firebase
+            isFirebaseAvailable = typeof FirebaseAuthService !== 'undefined' && firebaseDisponible;
+            
+            // Mettre à jour l'interface
+            updateDebugInfo();
+            updateConnectionStatus();
+            
+        } catch (error) {
+            console.error('❌ Erreur initialisation:', error);
+            showInfoMessage('Mode local activé - Certaines fonctionnalités peuvent être limitées');
+        }
+    }
+
+    function setupEventListeners() {
+        const loginForm = document.getElementById('loginForm');
+        if (loginForm) {
+            loginForm.addEventListener('submit', handleLogin);
+        }
+
+        // Surveiller les changements de connexion
+        window.addEventListener('online', updateConnectionStatus);
+        window.addEventListener('offline', updateConnectionStatus);
+    }
+
+    function checkExistingSession() {
+        const utilisateurConnecte = sessionStorage.getItem('msn_utilisateur_connecte');
+        const loginTime = sessionStorage.getItem('msn_login_time');
+        
+        if (utilisateurConnecte && loginTime) {
+            // Vérifier si la session est encore valide (12 heures)
+            const loginDate = new Date(loginTime);
+            const now = new Date();
+            const hoursDiff = (now - loginDate) / (1000 * 60 * 60);
+            
+            if (hoursDiff < 12) {
+                showSuccessMessage('Session restaurée - Redirection...');
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1500);
+            } else {
+                // Session expirée
+                sessionStorage.clear();
+                showInfoMessage('Session expirée - Veuillez vous reconnecter');
+            }
+        }
+    }
+
+    async function handleLogin(e) {
+        e.preventDefault();
+        
+        const identifiant = document.getElementById('identifiant').value.trim();
+        const motdepasse = document.getElementById('motdepasse').value;
+        
+        if (!identifiant || !motdepasse) {
+            showErrorMessage('Veuillez remplir tous les champs');
+            return;
+        }
+
+        // Désactiver le bouton
+        setLoginButtonState(true, 'Connexion en cours...');
+
+        try {
+            let loginSuccess = false;
+            let isFirebaseLogin = false;
+
+            // Essayer Firebase en premier si disponible
+            if (isFirebaseAvailable) {
+                try {
+                    const firebaseAuth = new FirebaseAuthService();
+                    const firebaseResult = await firebaseAuth.login(identifiant + '@multiservices.com', motdepasse);
+                    
+                    if (firebaseResult.success) {
+                        loginSuccess = true;
+                        isFirebaseLogin = true;
+                        console.log('✅ Connexion Firebase réussie');
+                    }
+                } catch (firebaseError) {
+                    console.log('🔌 Firebase indisponible, tentative locale...');
+                }
+            }
+
+            // Si Firebase échoue ou indisponible, essayer la connexion locale
+            if (!loginSuccess) {
+                loginSuccess = dataManager.verifierLogin(identifiant, motdepasse);
+                if (loginSuccess) {
+                    console.log('✅ Connexion locale réussie');
+                }
+            }
+
+            if (loginSuccess) {
+                await handleLoginSuccess(identifiant, isFirebaseLogin);
+            } else {
+                showErrorMessage('Identifiant ou mot de passe incorrect');
+                setLoginButtonState(false, 'Se connecter');
+            }
+
+        } catch (error) {
+            console.error('❌ Erreur connexion:', error);
+            showErrorMessage('Erreur lors de la connexion: ' + error.message);
+            setLoginButtonState(false, 'Se connecter');
+        }
+    }
+
+    async function handleLoginSuccess(identifiant, isFirebaseLogin) {
+        // Sauvegarder la session
+        sessionStorage.setItem('msn_utilisateur_connecte', identifiant);
+        sessionStorage.setItem('msn_login_time', new Date().toISOString());
+        sessionStorage.setItem('msn_firebase_user', isFirebaseLogin.toString());
+        sessionStorage.setItem('msn_auth_method', isFirebaseLogin ? 'firebase' : 'local');
+
+        // Synchronisation en arrière-plan (non bloquante)
+        if (isFirebaseLogin && dataManager.syncManager?.isOnline) {
+            setTimeout(async () => {
+                try {
+                    console.log('🔄 Synchronisation en arrière-plan...');
+                    await dataManager.syncManager.syncFromFirebase();
+                    console.log('✅ Synchronisation terminée');
+                } catch (syncError) {
+                    console.warn('⚠️ Synchronisation échouée:', syncError);
+                }
+            }, 100);
+        }
+
+        // Afficher le succès et rediriger
+        showSuccessMessage(`Connexion ${isFirebaseLogin ? 'Firebase' : 'locale'} réussie !`);
+        
+        setTimeout(() => {
+            window.location.href = 'index.html';
+        }, 1500);
+    }
+
+    function updateDebugInfo() {
+        if (!dataManager) return;
+
+        try {
+            document.getElementById('debugCommandes').textContent = dataManager.getCommandes().length;
+            document.getElementById('debugServices').textContent = dataManager.getServices().length;
+            
+            const lastSync = localStorage.getItem('msn_last_sync');
+            document.getElementById('lastSync').textContent = lastSync 
+                ? new Date(lastSync).toLocaleTimeString() 
+                : 'Jamais';
+
+            document.getElementById('debugMode').textContent = isFirebaseAvailable ? 'Firebase' : 'Local';
+            document.getElementById('debugMode').innerHTML = isFirebaseAvailable 
+                ? '<span class="firebase-badge">Firebase</span>' 
+                : '<span class="local-badge">Local</span>';
+
+        } catch (error) {
+            console.error('Erreur mise à jour debug:', error);
+        }
+    }
+
+    function updateConnectionStatus() {
+        const isOnline = navigator.onLine;
+        const statusElement = document.getElementById('connectionStatus');
+        const syncStatusElement = document.getElementById('syncStatus');
+
+        if (isOnline) {
+            statusElement.textContent = 'En ligne';
+            statusElement.style.color = 'green';
+            syncStatusElement.className = 'sync-status sync-online';
+        } else {
+            statusElement.textContent = 'Hors ligne';
+            statusElement.style.color = 'orange';
+            syncStatusElement.className = 'sync-status sync-offline';
+            showInfoMessage('Mode hors ligne activé');
+        }
+
+        // Mettre à jour le statut Firebase
+        if (isOnline && isFirebaseAvailable) {
+            statusElement.textContent += ' (Firebase disponible)';
+        }
+    }
+
+    function setLoginButtonState(loading, text = '') {
+        const button = document.getElementById('loginButton');
+        const buttonText = button.querySelector('.btn-text');
+        
+        if (loading) {
+            button.disabled = true;
+            button.classList.add('btn-loading');
+            if (text) buttonText.textContent = text;
+        } else {
+            button.disabled = false;
+            button.classList.remove('btn-loading');
+            if (text) buttonText.textContent = text;
+        }
+    }
+
+    function togglePasswordVisibility() {
+        const passwordInput = document.getElementById('motdepasse');
+        const toggleButton = document.querySelector('.toggle-password');
+        
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            toggleButton.textContent = '🔒';
+        } else {
+            passwordInput.type = 'password';
+            toggleButton.textContent = '👁️';
+        }
+    }
+
+    function showErrorMessage(message) {
+        hideAllMessages();
+        const element = document.getElementById('errorMessage');
+        element.querySelector('br').nextSibling.textContent = message;
+        element.style.display = 'block';
+    }
+
+    function showSuccessMessage(message) {
+        hideAllMessages();
+        const element = document.getElementById('successMessage');
+        element.querySelector('br').nextSibling.textContent = message;
+        element.style.display = 'block';
+    }
+
+    function showInfoMessage(message) {
+        hideAllMessages();
+        const element = document.getElementById('infoMessage');
+        element.textContent = message;
+        element.style.display = 'block';
+    }
+
+    function hideAllMessages() {
+        document.getElementById('errorMessage').style.display = 'none';
+        document.getElementById('successMessage').style.display = 'none';
+        document.getElementById('infoMessage').style.display = 'none';
+    }
+
+    // Exposer les fonctions globalement pour le débogage
+    window.debugLogin = {
+        dataManager: () => dataManager,
+        firebaseStatus: () => isFirebaseAvailable,
+        clearSession: () => sessionStorage.clear()
+    };
+</script>
+</body>
+</html>

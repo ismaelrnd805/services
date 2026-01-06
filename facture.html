@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <!-- Dans index.html -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Multi-Services Numériques - Facturation</title>
+    
+    <!-- Bootstrap CSS local -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/bootstrap-icons.css">
+    
+    <!-- CSS personnalisé -->
+    <link rel="stylesheet" href="assets/css/facture.css">
+    
+    <!-- jQuery local -->
+    <script src="assets/js/jquery-3.6.0.min.js"></script>
+</head>
+<body class="bg-light">
+
+    <!-- Navigation Principale -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" href="#">
+                <i class="bi bi-laptop"></i> Multi-Services Numériques
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+                aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="mainNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#" onclick="showTab('presentation')">
+                            <i class="bi bi-info-circle"></i> Présentation
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showTab('devis')">
+                            <i class="bi bi-file-earmark-text"></i> Nouveau Devis
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showTab('facture')">
+                            <i class="bi bi-receipt"></i> Facture Finale
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="dashboard/login.html" target="_blank">
+                            <i class="bi bi-speedometer2"></i> Dashboard
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenu Principal -->
+    <div class="container py-4">
+
+        <!-- Contenu des Onglets -->
+        <div class="tab-content" id="mainTabContent">
+            
+            <!-- PRÉSENTATION -->
+            <div class="tab-pane fade show active" id="presentation" role="tabpanel">
+                <div class="row g-4">
+                    <div class="col-12">
+                        <div class="card shadow-sm border-0">
+                            <div class="card-body p-4">
+                                <div class="text-center mb-4">
+                                    <h2 class="card-title text-primary mb-3">Nos Services et Tarifs</h2>
+                                    <p class="text-muted">Services professionnels de qualité avec des tarifs compétitifs</p>
+                                </div>
+                                <!-- Bouton + fixé pour nouveau devis -->
+                                <button class="btn-plus-fixe pulse" onclick="showTab('devis')" title="Créer un nouveau devis">
+                                    +
+                                </button>
+                                <div class="row g-4">
+                                    <!-- Services de Saisie -->
+                                    <div class="col-md-4">
+                                        <div class="d-flex align-items-center mb-3">
+                                            <i class="bi bi-file-text text-primary fs-4 me-2"></i>
+                                            <h5 class="mb-0">Services de Saisie</h5>
+                                        </div>
+                                        <div class="service-card">
+                                            <strong>Saisie document</strong>
+                                            <div class="text-muted small">700 à 1,000 Ar / page</div>
+                                        </div>
+                                        <div class="service-card">
+                                            <strong>Tableau</strong>
+                                            <div class="text-muted small">1,000 à 1,500 Ar / tableau</div>
+                                        </div>
+                                        <div class="service-card">
+                                            <strong>Figure complexe</strong>
+                                            <div class="text-muted small">1,500 Ar / figure</div>
+                                        </div>
+                                        <div class="service-card">
+                                            <strong>Graphique/Organigramme</strong>
+                                            <div class="text-muted small">1,500 Ar / élément</div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Services de Conception -->
+                                    <div class="col-md-4">
+                                        <div class="d-flex align-items-center mb-3">
+                                            <i class="bi bi-palette text-primary fs-4 me-2"></i>
+                                            <h5 class="mb-0">Services de Conception</h5>
+                                        </div>
+                                        <div class="service-card">
+                                            <strong>Conception logo</strong>
+                                            <div class="text-muted small">50,000 Ar / logo</div>
+                                        </div>
+                                        <div class="service-card">
+                                            <strong>Vectorisation image</strong>
+                                            <div class="text-muted small">25,000 Ar / image</div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Création d'Affiches -->
+                                    <div class="col-md-4">
+                                        <div class="d-flex align-items-center mb-3">
+                                            <i class="bi bi-image text-primary fs-4 me-2"></i>
+                                            <h5 class="mb-0">Création d'Affiches</h5>
+                                        </div>
+                                        <div class="service-card">
+                                            <strong>Affiche Basique</strong>
+                                            <div class="text-muted small">10,000 Ar / affiche</div>
+                                        </div>
+                                        <div class="service-card">
+                                            <strong>Affiche Standard</strong>
+                                            <div class="text-muted small">20,000 Ar / affiche</div>
+                                        </div>
+                                        <div class="service-card">
+                                            <strong>Affiche PRO</strong>
+                                            <div class="text-muted small">30,000 Ar / affiche</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <hr class="my-4">
+
+                                <!-- Conditions Générales -->
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="conditions-card">
+                                            <h4 class="text-primary mb-4">
+                                                <i class="bi bi-shield-check me-2"></i>Conditions Générales
+                                            </h4>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <ul class="list-unstyled conditions-list">
+                                                        <li class="mb-3">
+                                                            <div class="d-flex align-items-start">
+                                                                <i class="bi bi-cloud-arrow-down-fill text-primary me-3 mt-1"></i>
+                                                                <div>
+                                                                    <strong>Livraison sécurisée</strong>
+                                                                    <p class="mb-0 text-muted small">Fichiers sources transmis après validation du paiement</p>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li class="mb-3">
+                                                            <div class="d-flex align-items-start">
+                                                                <i class="bi bi-credit-card text-primary me-3 mt-1"></i>
+                                                                <div>
+                                                                    <strong>Paiement flexible</strong>
+                                                                    <p class="mb-0 text-muted small">Aucun acompte requis - Paiement à la livraison</p>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li class="mb-3">
+                                                            <div class="d-flex align-items-start">
+                                                                <i class="bi bi-eye-fill text-primary me-3 mt-1"></i>
+                                                                <div>
+                                                                    <strong>Validation préalable</strong>
+                                                                    <p class="mb-0 text-muted small">Aperçu détaillé avant règlement final</p>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <ul class="list-unstyled conditions-list">
+                                                        <li class="mb-3">
+                                                            <div class="d-flex align-items-start">
+                                                                <i class="bi bi-headset text-primary me-3 mt-1"></i>
+                                                                <div>
+                                                                    <strong>Support inclus</strong>
+                                                                    <p class="mb-0 text-muted small">Service après-vente gratuit inclus</p>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li class="mb-3">
+                                                            <div class="d-flex align-items-start">
+                                                                <i class="bi bi-clock-fill text-primary me-3 mt-1"></i>
+                                                                <div>
+                                                                    <strong>Délai garanti</strong>
+                                                                    <p class="mb-0 text-muted small">Livraison sous 1 à 7 jours ouvrés</p>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li class="mb-3">
+                                                            <div class="d-flex align-items-start">
+                                                                <i class="bi bi-whatsapp text-primary me-3 mt-1"></i>
+                                                                <div>
+                                                                    <strong>Support continu</strong>
+                                                                    <p class="mb-0 text-muted small">Assistance WhatsApp : <strong class="text-dark">+261 34 39 677 44</strong></p>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DEVIS -->
+<!-- DEVIS -->
+<div class="tab-pane fade" id="devis" role="tabpanel">
+    <div class="container-fluid">
+        <!-- PROGRESS BAR -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="steps-progress">
+                            <div class="step active" data-step="1">
+                                <div class="step-circle">1</div>
+                                <div class="step-label">Informations Client</div>
+                            </div>
+                            <div class="step" data-step="2">
+                                <div class="step-circle">2</div>
+                                <div class="step-label">Services Principaux</div>
+                            </div>
+                            <div class="step" data-step="3">
+                                <div class="step-circle">3</div>
+                                <div class="step-label">Services Avancés</div>
+                            </div>
+                            <div class="step" data-step="4">
+                                <div class="step-circle">4</div>
+                                <div class="step-label">Récapitulatif</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ÉTAPE 1: INFORMATIONS CLIENT -->
+        <div class="step-content active" data-step="1">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header bg-primary text-white">
+                            <h4 class="mb-0"><i class="bi bi-person me-2"></i>Informations du Client</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">Nom du Client *</label>
+                                    <input type="text" id="clientName" class="form-control form-control-lg" 
+                                           placeholder="Ex: SARL ABC Company" required>
+                                    <div class="form-text">Nom complet ou raison sociale</div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">Contact</label>
+                                    <input type="text" id="clientContact" class="form-control form-control-lg" 
+                                           placeholder="Ex: +261 34 12 345 67">
+                                    <div class="form-text">Téléphone ou email</div>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label fw-bold">Délai de Traitement</label>
+                                    <select id="dureeTraitement" class="form-select form-select-lg">
+                                        <option value="24h">24 heures (Urgent)</option>
+                                        <option value="3 jours" selected>3 jours (Standard)</option>
+                                        <option value="1 semaine">1 semaine</option>
+                                        <option value="2 semaines">2 semaines</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-light">
+                            <div class="d-flex justify-content-end">
+                                <button type="button" class="btn btn-primary btn-lg" onclick="nextStep(2)">
+                                    Suivant <i class="bi bi-arrow-right ms-2"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ÉTAPE 2: SERVICES PRINCIPAUX -->
+        <div class="step-content" data-step="2">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header bg-success text-white">
+                            <h4 class="mb-0"><i class="bi bi-file-text me-2"></i>Services de Saisie et Mise en Forme</h4>
+                        </div>
+                        <div class="card-body">
+                            <!-- SERVICE SAISIE DOCUMENT - AMÉLIORÉ -->
+                            <div class="service-category mb-4">
+                                <h5 class="text-success mb-3">
+                                    <i class="bi bi-keyboard me-2"></i>Saisie de Document
+                                </h5>
+                                <div class="row g-3">
+                                    <div class="col-md-4">
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="serviceSaisie">
+                                            <label class="form-check-label fw-bold" for="serviceSaisie">
+                                                Activer la saisie
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8" id="saisie-details" style="display: none;">
+                                        <div class="alert alert-info mb-3">
+                                            <small><i class="bi bi-info-circle me-1"></i> Saisissez le nombre de pages pour chaque type</small>
+                                        </div>
+                                        <div class="row g-3">
+                                            <!-- Type Simple -->
+                                            <div class="col-md-4">
+                                                <div class="card border-success h-100">
+                                                    <div class="card-body text-center">
+                                                        <h6 class="card-title text-success">Pages Simples</h6>
+                                                        <p class="card-text small text-muted mb-2">500 Ar / page</p>
+                                                        <input type="number" class="form-control pages-saisie-simple" 
+                                                               min="0" value="0" placeholder="0">
+                                                        <div class="mt-2">
+                                                            <small class="text-muted">
+                                                                Sous-total: <span class="fw-bold text-success sous-total-simple">0 Ar</span>
+                                                            </small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- Type Standard -->
+                                            <div class="col-md-4">
+                                                <div class="card border-primary h-100">
+                                                    <div class="card-body text-center">
+                                                        <h6 class="card-title text-primary">Pages Standard</h6>
+                                                        <p class="card-text small text-muted mb-2">700 Ar / page</p>
+                                                        <input type="number" class="form-control pages-saisie-standard" 
+                                                               min="0" value="0" placeholder="0">
+                                                        <div class="mt-2">
+                                                            <small class="text-muted">
+                                                                Sous-total: <span class="fw-bold text-primary sous-total-standard">0 Ar</span>
+                                                            </small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- Type Complexe -->
+                                            <div class="col-md-4">
+                                                <div class="card border-warning h-100">
+                                                    <div class="card-body text-center">
+                                                        <h6 class="card-title text-warning">Pages Complexes</h6>
+                                                        <p class="card-text small text-muted mb-2">1000 Ar / page</p>
+                                                        <input type="number" class="form-control pages-saisie-complexe" 
+                                                               min="0" value="0" placeholder="0">
+                                                        <div class="mt-2">
+                                                            <small class="text-muted">
+                                                                Sous-total: <span class="fw-bold text-warning sous-total-complexe">0 Ar</span>
+                                                            </small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Total Saisie -->
+                                        <div class="row mt-3">
+                                            <div class="col-12">
+                                                <div class="alert alert-success py-2">
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <strong>Total Saisie Document:</strong>
+                                                        <span class="fw-bold fs-5 total-saisie">0 Ar</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- SERVICE MISE EN FORME - AMÉLIORÉ -->
+                            <div class="service-category mb-4">
+                                <h5 class="text-success mb-3">
+                                    <i class="bi bi-palette me-2"></i>Mise en Forme
+                                </h5>
+                                <div class="row g-3">
+                                    <div class="col-md-4">
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="serviceMiseEnForme">
+                                            <label class="form-check-label fw-bold" for="serviceMiseEnForme">
+                                                Activer la mise en forme
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8" id="mise-en-forme-details" style="display: none;">
+                                        <div class="alert alert-info mb-3">
+                                            <small><i class="bi bi-info-circle me-1"></i> Saisissez le nombre de pages pour chaque type</small>
+                                        </div>
+                                        <div class="row g-3">
+                                            <!-- Type Basique -->
+                                            <div class="col-md-4">
+                                                <div class="card border-success h-100">
+                                                    <div class="card-body text-center">
+                                                        <h6 class="card-title text-success">Mise en forme Basique</h6>
+                                                        <p class="card-text small text-muted mb-2">300 Ar / page</p>
+                                                        <input type="number" class="form-control pages-mise-basique" 
+                                                               min="0" value="0" placeholder="0">
+                                                        <div class="mt-2">
+                                                            <small class="text-muted">
+                                                                Sous-total: <span class="fw-bold text-success sous-total-basique">0 Ar</span>
+                                                            </small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- Type Standard -->
+                                            <div class="col-md-4">
+                                                <div class="card border-primary h-100">
+                                                    <div class="card-body text-center">
+                                                        <h6 class="card-title text-primary">Mise en forme Standard</h6>
+                                                        <p class="card-text small text-muted mb-2">400 Ar / page</p>
+                                                        <input type="number" class="form-control pages-mise-standard" 
+                                                               min="0" value="0" placeholder="0">
+                                                        <div class="mt-2">
+                                                            <small class="text-muted">
+                                                                Sous-total: <span class="fw-bold text-primary sous-total-mise-standard">0 Ar</span>
+                                                            </small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- Type Avancé -->
+                                            <div class="col-md-4">
+                                                <div class="card border-warning h-100">
+                                                    <div class="card-body text-center">
+                                                        <h6 class="card-title text-warning">Mise en forme Avancée</h6>
+                                                        <p class="card-text small text-muted mb-2">600 Ar / page</p>
+                                                        <input type="number" class="form-control pages-mise-avancee" 
+                                                               min="0" value="0" placeholder="0">
+                                                        <div class="mt-2">
+                                                            <small class="text-muted">
+                                                                Sous-total: <span class="fw-bold text-warning sous-total-avancee">0 Ar</span>
+                                                            </small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Total Mise en forme -->
+                                        <div class="row mt-3">
+                                            <div class="col-12">
+                                                <div class="alert alert-success py-2">
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <strong>Total Mise en Forme:</strong>
+                                                        <span class="fw-bold fs-5 total-mise-forme">0 Ar</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- TABLEAUX -->
+                            <div class="service-category">
+                                <h5 class="text-success mb-3">
+                                    <i class="bi bi-table me-2"></i>Tableaux
+                                </h5>
+                                <div class="row g-3">
+                                    <div class="col-md-4">
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="serviceTableau">
+                                            <label class="form-check-label fw-bold" for="serviceTableau">
+                                                Ajouter des tableaux
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8" id="tableaux-details" style="display: none;">
+                                        <div class="row g-2">
+                                            <div class="col-md-6">
+                                                <label class="form-label">Nombre de tableaux</label>
+                                                <input type="number" id="nbTableaux" class="form-control" 
+                                                       min="1" value="1">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="form-label">Prix par tableau</label>
+                                                <select id="prixTableau" class="form-select">
+                                                    <option value="800">800 Ar</option>
+                                                    <option value="1000" selected>1000 Ar</option>
+                                                    <option value="1500">1500 Ar</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-light">
+                            <div class="d-flex justify-content-between">
+                                <button type="button" class="btn btn-secondary btn-lg" onclick="prevStep(1)">
+                                    <i class="bi bi-arrow-left me-2"></i> Retour
+                                </button>
+                                <button type="button" class="btn btn-primary btn-lg" onclick="nextStep(3)">
+                                    Suivant <i class="bi bi-arrow-right ms-2"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ÉTAPE 3: SERVICES AVANCÉS -->
+        <div class="step-content" data-step="3">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header bg-warning text-dark">
+                            <h4 class="mb-0"><i class="bi bi-magic me-2"></i>Services Graphiques et Spéciaux</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-4">
+                                <!-- COLONNE GAUCHE -->
+                                <div class="col-md-6">
+                                    <!-- FIGURES COMPLEXES -->
+                                    <div class="service-item-card">
+                                        <div class="form-check form-switch mb-2">
+                                            <input class="form-check-input" type="checkbox" id="serviceFigure">
+                                            <label class="form-check-label fw-bold" for="serviceFigure">
+                                                <i class="bi bi-pentagon me-2"></i>Figures Complexes
+                                            </label>
+                                        </div>
+                                        <div id="figure-details" style="display: none;">
+                                            <input type="number" id="nbFigures" class="form-control" 
+                                                   min="1" value="1" placeholder="Nombre de figures">
+                                            <div class="form-text">1500 Ar par figure</div>
+                                        </div>
+                                    </div>
+
+                                    <!-- GRAPHIQUES -->
+                                    <div class="service-item-card">
+                                        <div class="form-check form-switch mb-2">
+                                            <input class="form-check-input" type="checkbox" id="serviceGraphique">
+                                            <label class="form-check-label fw-bold" for="serviceGraphique">
+                                                <i class="bi bi-bar-chart me-2"></i>Graphiques & Organigrammes
+                                            </label>
+                                        </div>
+                                        <div id="graphique-details" style="display: none;">
+                                            <input type="number" id="nbGraphiques" class="form-control" 
+                                                   min="1" value="1" placeholder="Nombre d'éléments">
+                                            <div class="form-text">1500 Ar par élément</div>
+                                        </div>
+                                    </div>
+
+                                    <!-- LOGOS -->
+                                    <div class="service-item-card">
+                                        <div class="form-check form-switch mb-2">
+                                            <input class="form-check-input" type="checkbox" id="serviceLogo">
+                                            <label class="form-check-label fw-bold" for="serviceLogo">
+                                                <i class="bi bi-brush me-2"></i>Conception de Logo
+                                            </label>
+                                        </div>
+                                        <div id="logo-details" style="display: none;">
+                                            <input type="number" id="nbLogos" class="form-control" 
+                                                   min="1" value="1" placeholder="Nombre de logos">
+                                            <div class="form-text">50,000 Ar par logo</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- COLONNE DROITE -->
+                                <div class="col-md-6">
+                                    <!-- VECTORISATION -->
+                                    <div class="service-item-card">
+                                        <div class="form-check form-switch mb-2">
+                                            <input class="form-check-input" type="checkbox" id="serviceVector">
+                                            <label class="form-check-label fw-bold" for="serviceVector">
+                                                <i class="bi bi-vector-pen me-2"></i>Vectorisation d'Image
+                                            </label>
+                                        </div>
+                                        <div id="vector-details" style="display: none;">
+                                            <input type="number" id="nbVectors" class="form-control" 
+                                                   min="1" value="1" placeholder="Nombre d'images">
+                                            <div class="form-text">25,000 Ar par image</div>
+                                        </div>
+                                    </div>
+
+                                    <!-- AFFICHES -->
+                                    <div class="service-item-card">
+                                        <h6 class="fw-bold text-muted mb-2">Conception d'Affiches</h6>
+                                        <div class="form-check mb-2">
+                                            <input class="form-check-input" type="checkbox" id="serviceAfficheBasique">
+                                            <label class="form-check-label" for="serviceAfficheBasique">
+                                                Affiche Basique - 10,000 Ar
+                                            </label>
+                                            <input type="number" id="nbAffichesBasique" class="form-control mt-1" 
+                                                   min="1" value="1" placeholder="Quantité" style="display: none;">
+                                        </div>
+                                        <div class="form-check mb-2">
+                                            <input class="form-check-input" type="checkbox" id="serviceAfficheStandard">
+                                            <label class="form-check-label" for="serviceAfficheStandard">
+                                                Affiche Standard - 20,000 Ar
+                                            </label>
+                                            <input type="number" id="nbAffichesStandard" class="form-control mt-1" 
+                                                   min="1" value="1" placeholder="Quantité" style="display: none;">
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="serviceAffichePro">
+                                            <label class="form-check-label" for="serviceAffichePro">
+                                                Affiche PRO - 30,000 Ar
+                                            </label>
+                                            <input type="number" id="nbAffichesPro" class="form-control mt-1" 
+                                                   min="1" value="1" placeholder="Quantité" style="display: none;">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- SERVICES PERSONNALISÉS -->
+                            <div class="mt-4 p-3 border rounded bg-light">
+                                <h5 class="mb-3">
+                                    <i class="bi bi-plus-circle me-2"></i>Services Personnalisés
+                                </h5>
+                                <button type="button" class="btn btn-outline-primary mb-3" 
+                                onclick="ouvrirModalServicePersonnalise()">
+                                    <i class="bi bi-plus me-2"></i>Ajouter un Service Personnalisé
+                                </button>
+                                <div id="custom-services-container">
+                                    <!-- Services personnalisés ajoutés dynamiquement -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-light">
+                            <div class="d-flex justify-content-between">
+                                <button type="button" class="btn btn-secondary btn-lg" onclick="prevStep(2)">
+                                    <i class="bi bi-arrow-left me-2"></i> Retour
+                                </button>
+                                <button type="button" class="btn btn-primary btn-lg" onclick="nextStep(4)">
+                                    Voir le Récapitulatif <i class="bi bi-arrow-right ms-2"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ÉTAPE 4: RÉCAPITULATIF -->
+        <div class="step-content" data-step="4">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header bg-info text-white">
+                            <h4 class="mb-0"><i class="bi bi-check-circle me-2"></i>Récapitulatif du Devis</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h5 class="text-primary">Informations Client</h5>
+                                    <div id="recap-client" class="mb-4">
+                                        <!-- Généré dynamiquement -->
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <h5 class="text-primary">Services Sélectionnés</h5>
+                                    <div id="recap-services" class="mb-4">
+                                        <!-- Généré dynamiquement -->
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="total-card bg-light p-4 rounded text-center">
+                                        <h3 class="text-success mb-2">Total Estimé</h3>
+                                        <div id="recap-total" class="display-4 fw-bold text-primary">
+                                            <!-- Généré dynamiquement -->
+                                        </div>
+                                        <div class="text-muted">TVA non applicable, article 293 B du CGI</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-light">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <button type="button" class="btn btn-secondary btn-lg" onclick="prevStep(3)">
+                                    <i class="bi bi-arrow-left me-2"></i> Modifier
+                                </button>
+                                <div>
+                                    <button type="button" class="btn btn-outline-primary btn-lg me-2" 
+                                            onclick="reinitialiserDevis()">
+                                        <i class="bi bi-arrow-clockwise me-2"></i> Nouveau Devis
+                                    </button>
+                                    <button type="button" class="btn btn-success btn-lg" onclick="genererDevis()">
+                                        <i class="bi bi-file-earmark-text me-2"></i> Générer le Devis
+                                    </button>
+                                    <!-- Dans l'étape 4 (Récapitulatif) ou ailleurs dans la section devis -->
+                                    <button id="btnExportDevis" type="button" class="btn btn-success btn-lg" onclick="exporterDevisPDF()" style="display: none;">
+                                        <i class="bi bi-download me-2"></i> Exporter PDF
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Aperçu Devis -->
+    <div id="apercuDevis" class="facture-preview" style="display:none;"></div>
+</div>
+
+            <!-- FACTURE FINALE -->
+            <div class="tab-pane fade" id="facture" role="tabpanel">
+                <div class="row g-4">
+                    <div class="col-12">
+                        <div class="card shadow-sm border-0">
+                            <div class="card-body">
+                                <h5 class="card-title text-primary mb-4">
+                                    <i class="bi bi-credit-card me-2"></i>
+                                    Statut de Paiement et Livraison
+                                </h5>
+
+                                <!-- Référence Facture -->
+                                <div class="mb-4">
+                                    <label class="form-label fw-semibold">Référence Facture</label>
+                                    <input type="text" id="refFacture" class="form-control" readonly style="background-color: #f8f9fa; font-weight: bold;">
+                                    <div class="form-text">Cette référence sera utilisée pour le suivi de votre commande</div>
+                                </div>
+
+                                <div class="row g-4">
+                                    <!-- Statuts -->
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-semibold">Statut Paiement</label>
+                                        <select id="statutPaiement" class="form-select" onchange="togglePaiementDetails()">
+                                            <option value="en-cours">Paiement en cours</option>
+                                            <option value="paye">Payé</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-semibold">Statut Livraison</label>
+                                        <select id="statutLivraison" class="form-select">
+                                            <option value="en-cours">En cours de traitement</option>
+                                            <option value="livre">Livré</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- Référence Paiement -->
+                                    <div id="refPaiementSection" class="col-12" style="display:none;">
+                                        <label class="form-label fw-semibold">Référence de paiement</label>
+                                        <input type="text" id="refPaiement" class="form-control" 
+                                               placeholder="Ex: 2012MAR (Date + 3 lettres du nom)">
+                                        <div class="form-text">Indiquez la référence de votre paiement mobile money</div>
+                                    </div>
+
+                                    <!-- Mobile Money -->
+                                    <div id="mobileMoneySection" class="col-12">
+                                        <h6 class="text-primary mb-3">Paiement par Mobile Money</h6>
+                                        <div class="row g-3">
+                                            <div class="col-md-4">
+                                                <div class="mobile-money-card">
+                                                    <strong class="text-primary">Mvola</strong>
+                                                    <p class="mb-0 text-muted mt-2">034 39 677 44</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="mobile-money-card">
+                                                    <strong class="text-primary">Airtel Money</strong>
+                                                    <p class="mb-0 text-muted mt-2">033 18 444 53</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="mobile-money-card">
+                                                    <strong class="text-primary">Orange Money</strong>
+                                                    <p class="mb-0 text-muted mt-2">032 26 803 69</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Actions -->
+                                    <div class="col-12">
+                                        <div class="d-flex gap-2 flex-wrap mt-4">
+                                            <button onclick="genererFactureFinale()" class="btn btn-primary">
+                                                <i class="bi bi-receipt me-2"></i> Générer Facture Finale
+                                            </button>
+                                            <button onclick="imprimerFacture()" class="btn btn-outline-secondary">
+                                                <i class="bi bi-printer me-2"></i> Imprimer
+                                            </button>
+                                            <button onclick="reinitialiserFacture()" class="btn btn-outline-danger">
+                                                <i class="bi bi-trash me-2"></i> Nouvelle Facture
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Aperçu Facture -->
+                                <div id="apercuFacture" class="facture-preview mt-4" style="display:none;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   <!-- Modal pour ajouter service personnalisé -->
+<div class="modal fade" id="modalAddService" tabindex="-1" aria-labelledby="modalAddServiceLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalAddServiceLabel">Ajouter un Service Personnalisé</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+            </div>
+            <div class="modal-body">
+                <form id="formAddService">
+                    <div class="mb-3">
+                        <label for="customName" class="form-label">Nom du service *</label>
+                        <input type="text" class="form-control" id="customName" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="customDesc" class="form-label">Description</label>
+                        <textarea class="form-control" id="customDesc" rows="2"></textarea>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="customPrice" class="form-label">Prix unitaire (Ar) *</label>
+                                <input type="number" class="form-control" id="customPrice" min="0" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="customQuantity" class="form-label">Quantité</label>
+                                <input type="number" class="form-control" id="customQuantity" value="1" min="1">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="customUnite" class="form-label">Unité</label>
+                        <input type="text" class="form-control" id="customUnite" value="unité" placeholder="Ex: page, heure, projet">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                <button type="button" class="btn btn-primary" onclick="ajouterServicePersonnaliseModal()">
+                    Ajouter le service
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- CHARGER Bootstrap APRÈS jQuery -->
+<script src="assets/js/bootstrap.bundle.min.js"></script>
+<script src="shared/data.js"></script>
+<script src="assets/js/facture.js"></script>
+<script src="assets/js/html2canvas.esm.js"></script>
+
+<!-- Initialisation simplifiée -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('🚀 Démarrage de l\'application...');
+    
+    // Attendre que tout soit chargé
+    setTimeout(() => {
+        // Initialiser l'interface étape par étape si la fonction existe
+        if (typeof initialiserInterfaceEtapes === 'function') {
+            console.log('🎯 Initialisation de l\'interface étape par étape...');
+            initialiserInterfaceEtapes();
+        } else {
+            console.warn('⚠️ initialiserInterfaceEtapes non trouvée');
+        }
+        
+        // Forcer l'affichage de l'étape 1
+        if (typeof showStep === 'function') {
+            showStep(1);
+        }
+    }, 500);
+});
+</script>
+</body>
+</html>

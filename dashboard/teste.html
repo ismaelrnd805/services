@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Facture ${factureData.referenceFacture}</title>
+  <link rel="stylesheet" href="assets/css/bootstrap-icons.css">
+ <style>
+    @page {
+        margin: 5mm;
+        size: A4;
+    }
+    
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #fff;
+        color: #000;
+        line-height: 1.4;
+        font-size: 28px; /* Taille augmentée pour mobile */
+        width: 100%;
+        max-width: 100%;
+        -webkit-text-size-adjust: 100%;
+    }
+
+    .page-break {
+        page-break-before: always;
+        break-before: page;
+    }
+
+    .avoid-break {
+        page-break-inside: avoid;
+        break-inside: avoid;
+    }
+
+    h1, h2, h3 {
+        color: #000;
+        margin: 0;
+        page-break-after: avoid;
+        font-weight: bold;
+    }
+
+    h1 { 
+        font-size: 40px; 
+        margin-bottom: 8px;
+    }
+    h2 { 
+        font-size: 36px; 
+        margin-bottom: 6px;
+    }
+    h3 { 
+        font-size: 32px; 
+        margin-bottom: 4px;
+    }
+
+    .header, .footer {
+        border-top: 2px solid #000;
+        border-bottom: 2px solid #000;
+        padding: 12px 0;
+        text-align: center;
+        page-break-inside: avoid;
+        margin-bottom: 15px;
+    }
+
+    .header h1 {
+        font-size: 44px;
+        margin-bottom: 5px;
+    }
+
+    .header p {
+        margin: 3px 0;
+        font-size: 13px;
+    }
+
+    .section {
+        margin-top: 15px;
+        page-break-inside: avoid;
+        width: 100%;
+    }
+
+    .compact-section {
+        margin-top: 12px;
+        page-break-inside: avoid;
+    }
+
+    /* Tables simplifiées comme JIRAMA */
+    .info-table, .services-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+        font-size: 28px; /* Taille augmentée */
+        page-break-inside: avoid;
+    }
+
+    .info-table td, .services-table th, .services-table td {
+        border: 1px solid #000;
+        padding: 8px 6px; /* Padding augmenté */
+        text-align: left;
+        vertical-align: top;
+    }
+
+    .services-table th {
+        background-color: #000;
+        color: white;
+        font-weight: bold;
+        font-size: 28px;
+        padding: 10px 6px;
+    }
+
+    .services-table td {
+        text-align: left;
+        font-size: 28px;
+    }
+
+    /* Style spécifique pour les données importantes */
+    .montant-important {
+        font-size: 16px;
+        font-weight: bold;
+        color: #000;
+        background-color: #f8f9fa;
+        padding: 10px;
+        border: 2px solid #000;
+    }
+
+    .total-row {
+        background-color: #e9ecef;
+        font-weight: bold;
+        font-size: 28px;
+    }
+
+    .payment-section {
+        background: #fff;
+        border: 2px solid #000;
+        border-radius: 0; /* Style plus carré comme JIRAMA */
+        padding: 15px;
+        margin: 15px 0;
+        page-break-inside: avoid;
+    }
+
+    .payment-methods-grid {
+        display: block; /* Passer en block pour mobile */
+        margin: 12px 0;
+    }
+
+    .payment-method {
+        background: white;
+        padding: 12px;
+        border: 1px solid #000;
+        border-radius: 0;
+        text-align: center;
+        margin-bottom: 10px;
+        page-break-inside: avoid;
+    }
+
+    .operator-logo {
+        height: 35px; /* Légèrement plus grand */
+        margin-bottom: 10px;
+    }
+
+    .operator-name {
+        font-weight: bold;
+        color: #000;
+        margin-bottom: 5px;
+        font-size: 14px;
+    }
+
+    .operator-number {
+        color: #000;
+        font-weight: bold;
+        font-size: 15px;
+        margin: 5px 0;
+    }
+
+    .account-info {
+        font-size: 12px;
+        color: #000;
+        margin-top: 5px;
+    }
+
+    .facture-container {
+        max-width: 100%; /* Pleine largeur */
+        margin: 0 auto;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+
+    .status-badge {
+        display: inline-block;
+        padding: 4px 8px;
+        border-radius: 3px;
+        font-size: 12px;
+        font-weight: bold;
+        margin-left: 8px;
+    }
+
+    .status-paye {
+        background-color: #d4edda;
+        color: #155724;
+        border: 1px solid #155724;
+    }
+
+    .status-attente {
+        background-color: #fff3cd;
+        color: #856404;
+        border: 1px solid #856404;
+    }
+
+    .status-livre {
+        background-color: #cce7ff;
+        color: #004085;
+        border: 1px solid #004085;
+    }
+
+    .conditions {
+        background: #fff;
+        border: 2px solid #000;
+        border-radius: 0;
+        padding: 15px;
+        margin: 15px 0;
+        page-break-inside: avoid;
+        font-size: 13px;
+    }
+
+    .conditions ul {
+        margin: 10px 0;
+        padding-left: 20px;
+    }
+
+    .conditions li {
+        margin-bottom: 5px;
+        font-size: 13px;
+    }
+
+    .payment-note {
+        background: #fff;
+        border: 1px solid #000;
+        border-radius: 0;
+        padding: 12px;
+        margin-top: 15px;
+        font-size: 13px;
+    }
+
+    .contact {
+        margin-top: 20px;
+        font-size: 13px;
+        text-align: center;
+        page-break-before: avoid;
+        border-top: 1px solid #000;
+        padding-top: 15px;
+    }
+
+    .contact p {
+        margin: 4px 0;
+    }
+
+    /* Styles spécifiques pour la lisibilité mobile */
+    .mobile-optimized {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .text-important {
+        font-size: 16px;
+        font-weight: bold;
+        margin: 10px 0;
+    }
+
+    .text-secondary {
+        font-size: 13px;
+        color: #000;
+    }
+
+    /* Pour les longs contenus dans les cellules */
+    .break-word {
+        word-break: break-word;
+        overflow-wrap: break-word;
+    }
+
+    /* Espacement amélioré */
+    .spacing-sm { margin-bottom: 5px; }
+    .spacing-md { margin-bottom: 10px; }
+    .spacing-lg { margin-bottom: 15px; }
+
+    /* Alignement spécifique pour les montants */
+    .align-right {
+        text-align: right;
+    }
+
+    .align-center {
+        text-align: center;
+    }
+
+    /* Style pour les lignes de séparation */
+    .separator {
+        border-top: 1px solid #000;
+        margin: 10px 0;
+    }
+
+    /* Media query pour l'impression */
+    @media print {
+        body {
+            font-size: 13px;
+        }
+        
+        .header, .footer {
+            border-color: #000;
+        }
+        
+        .services-table th {
+            background-color: #000 !important;
+            color: white !important;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+    }
+
+    /* Media query pour mobile */
+    @media screen and (max-width: 768px) {
+        body {
+            font-size: 16px; /* Plus grand sur mobile */
+            padding: 5px;
+        }
+        
+        .facture-container {
+            padding: 5px;
+        }
+        
+        h1 { font-size: 22px; }
+        h2 { font-size: 20px; }
+        h3 { font-size: 18px; }
+        
+        .services-table, .info-table {
+            font-size: 14px;
+        }
+        
+        .montant-important {
+            font-size: 18px;
+        }
+    }
+</style>
+</head>
+<body>
+
+  <div class="facture-container">
+    
+    <!-- PREMIÈRE PAGE -->
+    <div class="header avoid-break">
+      <h1>${entreprise.nom}</h1>
+      <p>Saisie & Conception Graphique Professionnelle</p>
+      <p>${entreprise.email} | ${entreprise.telephone}</p>
+    </div>
+
+    <div class="section avoid-break">
+      <h2>Facture N° ${factureData.referenceFacture}</h2>
+      <table class="info-table">
+        <tr>
+          <td><strong><i class="bi bi-person"></i> Client :</strong> ${factureData.client}</td>
+          <td><strong><i class="bi bi-calendar"></i> Date :</strong> ${factureData.date}</td>
+        </tr>
+        <tr>
+          <td><strong><i class="bi bi-phone"></i> Contact :</strong> ${factureData.contact || 'Non spécifié'}</td>
+          <td>
+            <strong><i class="bi bi-clock"></i> Délai :</strong> ${factureData.duree}
+            <span class="status-badge ${factureData.statutLivraison === 'livre' ? 'status-livre' : 'status-attente'}">
+              ${factureData.statutLivraison === 'livre' ? 'LIVRÉ' : 'EN COURS'}
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <strong><i class="bi bi-credit-card"></i> Statut Paiement :</strong> 
+            <span class="status-badge ${estPaye ? 'status-paye' : 'status-attente'}">
+              ${estPaye ? 'PAYÉ' : 'EN ATTENTE DE PAIEMENT'}
+            </span>
+            ${factureData.referencePaiement ? ` - Référence: ${factureData.referencePaiement}` : ''}
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="section ${nombreServices > 6 ? 'keep-together' : ''}">
+      <h3><i class="bi bi-list-check"></i> Détails des prestations</h3>
+      <div class="table-container">
+        <table class="services-table">
+          <thead>
+            <tr>
+              <th>Description</th>
+              <th>Quantité</th>
+              <th>Prix Unitaire</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${factureData.services.map(service => `
+              <tr>
+                <td>${service.nom}</td>
+                <td>${service.quantite} ${service.unite}</td>
+                <td>${service.prixUnitaire.toLocaleString('fr-FR')} Ar</td>
+                <td>${service.sousTotal.toLocaleString('fr-FR')} Ar</td>
+              </tr>
+            `).join('')}
+          </tbody>
+          <tfoot>
+            <tr class="total-row">
+              <td colspan="3" style="text-align:right;"><strong>TOTAL ${estPaye ? 'PAYÉ' : 'À PAYER'}</strong></td>
+              <td>
+                <strong>${total.toLocaleString('fr-FR')} Ar</strong>
+                ${estPaye ? '<div class="status-badge status-paye" style="margin-top: 3px;">✓ PAIEMENT CONFIRMÉ</div>' : ''}
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+
+    ${!estPaye && nombreServices <= 6 ? `
+    <div class="payment-section avoid-break">
+      <h3><i class="bi bi-credit-card-2-front"></i> Paiement par Mobile Money</h3>
+      <p style="margin: 0 0 12px 0; font-size: 11px;">Veuillez effectuer le paiement via l'un des opérateurs suivants :</p>
+      
+      <div class="payment-methods-grid">
+        <!-- Mvola -->
+        <div class="payment-method">
+          <img src="assets/image/logo-mvola.png" class="operator-logo" alt="Mvola">
+          <div class="operator-name">Mvola</div>
+          <div class="operator-number">${entreprise.mobileMoney.mvola}</div>
+          <div class="account-info">Compte au nom de Ismael Randrianasoavina</div>
+        </div>
+        
+        <!-- Airtel Money -->
+        <div class="payment-method">
+          <img src="assets/image/logo-airtelmoney.png" class="operator-logo" alt="Airtel Money">
+          <div class="operator-name">Airtel Money</div>
+          <div class="operator-number">${entreprise.mobileMoney.airtel}</div>
+          <div class="account-info">Compte au nom de Ismael Randrianasoavina</div>
+        </div>
+        
+        <!-- Orange Money -->
+        <div class="payment-method">
+          <img src="assets/image/logo-orangemoney.png" class="operator-logo" alt="Orange Money">
+          <div class="operator-name">Orange Money</div>
+          <div class="operator-number">${entreprise.mobileMoney.orange}</div>
+          <div class="account-info">Compte au nom de Ismael Randrianasoavina</div>
+        </div>
+      </div>
+
+      <div class="payment-note">
+        <p style="margin: 0; color: #004085;">
+          <i class="bi bi-info-circle"></i> <strong>Important :</strong> Après paiement, veuillez nous communiquer la référence de transaction par WhatsApp au ${entreprise.whatsapp}
+        </p>
+      </div>
+    </div>
+    ` : ''}
+
+    ${!estPaye && nombreServices > 6 ? `
+    <!-- DEUXIÈME PAGE - Si beaucoup de services -->
+    <div class="page-break"></div>
+    
+    <div class="payment-section">
+      <h3><i class="bi bi-credit-card-2-front"></i> Paiement par Mobile Money</h3>
+      <p style="margin: 0 0 12px 0; font-size: 11px;">Veuillez effectuer le paiement via l'un des opérateurs suivants :</p>
+      
+      <div class="payment-methods-grid">
+        <!-- Mvola -->
+        <div class="payment-method">
+          <img src="assets/image/logo-mvola.png" class="operator-logo" alt="Mvola">
+          <div class="operator-name">Mvola</div>
+          <div class="operator-number">${entreprise.mobileMoney.mvola}</div>
+          <div class="account-info">Compte au nom de Ismael Randrianasoavina</div>
+        </div>
+        
+        <!-- Airtel Money -->
+        <div class="payment-method">
+          <img src="assets/image/logo-airtelmoney.png" class="operator-logo" alt="Airtel Money">
+          <div class="operator-name">Airtel Money</div>
+          <div class="operator-number">${entreprise.mobileMoney.airtel}</div>
+          <div class="account-info">Compte au nom de Ismael Randrianasoavina</div>
+        </div>
+        
+        <!-- Orange Money -->
+        <div class="payment-method">
+          <img src="assets/image/logo-orangemoney.png" class="operator-logo" alt="Orange Money">
+          <div class="operator-name">Orange Money</div>
+          <div class="operator-number">${entreprise.mobileMoney.orange}</div>
+          <div class="account-info">Compte au nom de Ismael Randrianasoavina</div>
+        </div>
+      </div>
+
+      <div class="payment-note">
+        <p style="margin: 0; color: #004085;">
+          <i class="bi bi-info-circle"></i> <strong>Important :</strong> Après paiement, veuillez nous communiquer la référence de transaction par WhatsApp au ${entreprise.whatsapp}
+        </p>
+      </div>
+    </div>
+    ` : ''}
+
+    <div class="conditions avoid-break">
+      <h3><i class="bi bi-shield-check"></i> Conditions Générales</h3>
+      <ul>
+        <li>Les fichiers sources sont envoyés après paiement complet</li>
+        <li>Aucun acompte n'est obligatoire - Paiement à la livraison</li>
+        <li>Droit de voir un aperçu avant paiement final</li>
+        <li>Service après-vente gratuit inclus pour corrections mineures</li>
+        <li>Durée de traitement estimée: ${factureData.duree}</li>
+        <li>Support continu par WhatsApp: ${entreprise.whatsapp}</li>
+        <li>Traitement confidentiel de tous vos documents</li>
+      </ul>
+    </div>
+
+    <div class="footer contact avoid-break">
+      <p>Document généré le ${new Date().toLocaleDateString('fr-FR')} - ${entreprise.nom}</p>
+      <p><i class="bi bi-telephone"></i> ${entreprise.telephone} | <i class="bi bi-envelope"></i> ${entreprise.email} | <i class="bi bi-whatsapp"></i> ${entreprise.whatsapp}</p>
+      <p style="margin-top: 8px; font-size: 9px; color: #7f8c8d;">
+        Merci pour votre confiance ! Pour toute question, contactez-nous sur WhatsApp.
+      </p>
+    </div>
+
+  </div>
+
+</body>
+</html>

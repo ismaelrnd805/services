@@ -1,0 +1,91 @@
+/* Styles pour le module de rapport */
+.rapport-container {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.rapport-section {
+    margin-bottom: 25px;
+    padding: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+}
+
+.rapport-checkbox {
+    margin-right: 10px;
+}
+
+.rapport-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 10px;
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 4px;
+}
+
+.rapport-details {
+    flex: 1;
+    margin-left: 10px;
+}
+
+.rapport-input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-top: 5px;
+}
+
+.rapport-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.statut-validation {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.statut-en-cours {
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeaa7;
+}
+
+.statut-valide {
+    background-color: #d1edff;
+    color: #0c5460;
+    border: 1px solid #bee5eb;
+}
+
+.rapport-preview {
+    border: 1px solid #ddd;
+    padding: 20px;
+    background: white;
+    min-height: 400px;
+    margin-top: 20px;
+}
+
+/* Styles pour l'impression PDF */
+@media print {
+    .no-print {
+        display: none !important;
+    }
+    
+    .rapport-preview {
+        border: none;
+        box-shadow: none;
+        margin: 0;
+        padding: 0;
+    }
+    
+    .page-break {
+        page-break-after: always;
+    }
+}

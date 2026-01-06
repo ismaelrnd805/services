@@ -1,0 +1,31 @@
+﻿FEUILLE COMMANDES
+Référence;Client;Contact;Services;Total;Statut;Paiement;Validation;Date création;Durée estimée
+DEV-251112-027;Lucienne;+261 34 40 363 45;Affiche Basique; Mise à jour Brochure;15 000;Devis;Payé;Validation en cours;12/11/2025;3 jours
+DEV-251112-031;Miora Razakasoa;+261 34 29 394 54;Mise en forme; PowerPoint;43 200;Devis;Payé;Validation en cours;12/11/2025;3 jours
+DEV-251112-035;Ramisa;+261 32 39 468 50;Mise en forme;72 000;Devis;Payé;Validation en cours;12/11/2025;3 jours
+DEV-251112-039;Faniry Razafindrakoto;+261 33 80 663 29;Mise en forme;45 200;Devis;Payé;Validation en cours;12/11/2025;3 jours
+DEV-251112-043;Hajatiana;+261 33 37 138 93;Mise en forme;13 200;Devis;Payé;Validation en cours;12/11/2025;3 jours
+DEV-251112-047;Sitraka;+261 34 54 599 70;Saisie document;5 000;Devis;Payé;Validation en cours;12/11/2025;3 jours
+DEV-251112-051;Hasina;+261 38 76 245 44;Saisie document;13 300;Devis;Payé;Validation en cours;12/11/2025;3 jours
+DEV-251112-055;Analfe;+261 38 78 900 25;Saisie document;8 400;Devis;En Attente;Validation en cours;12/11/2025;3 jours
+DEV-251112-059;Fara Raharinjatovo;+261 34 64 856 88;Saisie document;130 000;Devis;Payé;Validation en cours;12/11/2025;3 jours
+DEV-251112-063;~Linah Rahonjaniaina;+261 34 54 876 98;Mise en forme;33 600;Terminé;Payé;Validation en cours;12/11/2025;3 jours
+
+FEUILLE CLIENTS
+Client;Contact;Commandes totales;Total dépensé;Dernière commande
+Lucienne;+261 34 40 363 45;1;15000 Ar;12/11/2025
+Miora Razakasoa;+261 34 29 394 54;1;43200 Ar;12/11/2025
+Ramisa;+261 32 39 468 50;1;72000 Ar;12/11/2025
+Faniry Razafindrakoto;+261 33 80 663 29;1;45200 Ar;12/11/2025
+Hajatiana;+261 33 37 138 93;1;13200 Ar;12/11/2025
+Sitraka;+261 34 54 599 70;1;5000 Ar;12/11/2025
+Hasina;+261 38 76 245 44;1;13300 Ar;12/11/2025
+Analfe;+261 38 78 900 25;1;8400 Ar;12/11/2025
+Fara Raharinjatovo;+261 34 64 856 88;1;130000 Ar;12/11/2025
+~Linah Rahonjaniaina;+261 34 54 876 98;1;33600 Ar;12/11/2025
+
+FEUILLE FINANCES
+Type;Montant
+Total encaissé;370500 Ar
+CA mensuel;378900 Ar
+En attente de paiement;8400 Ar
